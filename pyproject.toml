@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -32,7 +32,11 @@ Issues = "https://gitlab.univ-lr.fr/etakahas/my-arithmetic-ethantakahashi/issues
 Source = "https://gitlab.univ-lr.fr/etakahas/my-arithmetic-ethantakahashi"
 
 [tool.hatch.version]
-path = "src/my_arithmetic_ethantakahashi/__about__.py"
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+version_scheme = "no-guess-dev"
+local_scheme = "no-local-version"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
@@ -45,9 +49,6 @@ check = "mypy --install-types --non-interactive {args:src/my_arithmetic_ethantak
 source_pkgs = ["my_arithmetic_ethantakahashi", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/my_arithmetic_ethantakahashi/__about__.py",
-]
 
 [tool.coverage.paths]
 my_arithmetic_ethantakahashi = ["src/my_arithmetic_ethantakahashi", "*/my-arithmetic-ethantakahashi/src/my_arithmetic_ethantakahashi"]
