@@ -20,6 +20,28 @@ jobs:
         run: pipx install hatch
       - name: Test
         run: hatch test --cover
+      - name: Test
+        run: hatch test --cover
+      - name: Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          hatch run pip install coveralls
+          hatch run coveralls
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install Hatch
+        run: pipx install hatch
+      - name: Build documentation
+        run: hatch run docs:build
 
   deploy-stable:
     needs: tests
